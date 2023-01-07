@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Project Firebase JS</title>
+
+
+    <!-- link for bootstrap css -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+    <!-- link for custom css -->
+    <link rel="stylesheet" href="style.css">
+
+  </head>
+  <body>
+    <!-- <h1>Hello, world!</h1> -->
+
+    <div class="container box">
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Logo</th>
+                <th scope="col">Name</th>
+                <th scope="col">Cost</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr id="mrow">
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td id="mark_cost">200</td>
+              </tr>
+              <tr id="jrow">
+                <th scope="row">2</th>
+                <td>Jacob</td>
+                <td>Thornton</td>
+                <td id="jacob_cost">300</td>
+              </tr>
+              <tr id="lrow">
+                <th scope="row">3</th>
+                <td>Larry the Bird</td>
+                <td>Lorem</td>
+                <td id="lorem_cost">100</td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+
+
+
+
+
+    <!-- link for custom js -->
+    <script src="script.js"></script>
+
+<script type="module">
+
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyBX21HIOm5v8lJArc91hV-d5kigAQ4laDE",
+    authDomain: "projfirebasejs.firebaseapp.com",
+    projectId: "projfirebasejs",
+    storageBucket: "projfirebasejs.appspot.com",
+    messagingSenderId: "391551330422",
+    appId: "1:391551330422:web:0f3dacaea566f7b8f19757",
+    measurementId: "G-3RE9SRQDDC"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+
+// declaring global variables for array 
+
+  let arrSort = [];
+
+
+
+// declartion of td cost tag 
+
+    let mcost = document.getElementById('mark_cost').innerText;
+    let mark_cost = document.getElementById('mark_cost');
+    let jacob_cost = document.getElementById('jacob_cost');
+    let jcost = document.getElementById('jacob_cost').innerText;
+    let lorem_cost = document.getElementById('lorem_cost');
+    let lcost = document.getElementById('lorem_cost').innerText;
+
+
+//  grabbing the ids of table rows to interchange the sorted data 
+
+    let mrow = document.getElementById('mrow');
+    let jrow = document.getElementById('jrow');
+    let lrow = document.getElementById('lrow');
+    
+
+    
+
+
+// setting the values to the array 
+
+    arrSort.push(mcost);
+    arrSort.push(jcost);
+    arrSort.push(lcost);
+
+    console.log(arrSort);
+
+
+    // setting the values of cost 
+
+mark_cost.addEventListener('click', function(e) {
+    let mcost =  updateCost();
+    // a1 = this.mcost;
+    arrSort[0] = mcost;
+    mark_cost.innerHTML = mcost;
+})
+
+jacob_cost.addEventListener('click', function(e) {
+    let jcost =  updateCost();
+    // b1 = this.jcost;
+    arrSort[1] = jcost;
+    jacob_cost.innerHTML = jcost;
+})
+
+
+lorem_cost.addEventListener('click', function(e) {
+    let lcost =  updateCost();
+    // c1 = this.lcost;
+    arrSort[2] = lcost;
+    lorem_cost.innerHTML = lcost;
+})
+
+
+// function to update the value of cost 
+
+function updateCost(){
+    let cost = prompt("Enter the cost:","cost here");
+    sortArr(arrSort);
+    console.log(arrSort);
+    return cost;
+}
+
+
+// function to sort the array 
+
+function sortArr(array){
+    for(let i=0; i < arrSort.length ; i++){
+        if (i>i+1) {
+            let temp = array[i];
+            array[i] = array[i+1];
+            array[i+1] = temp;
+        }
+    }
+}
+
+
+</script>
+
+    <!-- script links of bootstrap  -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+
+  </body>
+</html>
