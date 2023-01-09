@@ -44,9 +44,9 @@ arrSort[0] = 100;
 arrSort[1] = 200;
 arrSort[2] = 300;
 
-mark_cost.innerHTML.valueOf = mcost = arrSort[0];
-jacob_cost.innerText.valueOf = jcost = arrSort[1];
-lorem_cost.innerText.valueOf = lcost = arrSort[2];
+mark_cost.innerText = arrSort[0];
+jacob_cost.innerText = arrSort[1];
+lorem_cost.innerText = arrSort[2];
 
 
 
@@ -59,11 +59,24 @@ let sub_btn = document.getElementById('submit');
 // uploading the values in the database 
 
 sub_btn.addEventListener('click', function () {
-    storeCost(mid, mark, mname, mcost);
-    storeCost(jid, jacob, jname, jcost);
-    storeCost(lid, lorem, lname, lcost);
+    storeCost(mid, mark, mname, arrSort[0]);
+    storeCost(jid, jacob, jname,arrSort[1]);
+    storeCost(lid, lorem, lname,arrSort[2]);
     // console.log(mark);
-})
+    // sub_btn.ariaDisabled;
+});
+
+// grabbing the update btn
+
+let update_btn = document.getElementById('update');
+
+// to update the cost values in database
+
+update_btn.addEventListener('click', function(){
+    updatecost(mark,arrSort[0]);
+    updatecost(jacob,arrSort[1]);
+    updatecost(lorem,arrSort[2]);
+});
 
 
 
@@ -71,7 +84,7 @@ sub_btn.addEventListener('click', function () {
 // setting the values of cost 
 
 mark_cost.addEventListener('click', function (e) {
-    let markcost = updateCost();
+    let markcost = changeCost();
     console.log(arrSort);
     // a1 = this.mcost;
     arrSort[0] = markcost;
@@ -79,7 +92,7 @@ mark_cost.addEventListener('click', function (e) {
 })
 
 jacob_cost.addEventListener('click', function (e) {
-    let jacobcost = updateCost();
+    let jacobcost = changeCost();
     console.log(arrSort);
     // b1 = this.jcost;
     arrSort[1] = jacobcost;
@@ -88,7 +101,7 @@ jacob_cost.addEventListener('click', function (e) {
 
 
 lorem_cost.addEventListener('click', function (e) {
-    let loremcost = updateCost();
+    let loremcost = changeCost();
     console.log(arrSort);
     // c1 = this.lcost;
     arrSort[2] = loremcost;
@@ -98,9 +111,16 @@ lorem_cost.addEventListener('click', function (e) {
 
 // function to update the value of cost 
 
-function updateCost() {
+function changeCost() {
     let cost = prompt("Enter the cost:", "cost here");
     return parseInt(cost);
+}
+
+
+// fucction to upload img 
+
+function uploadImg(){
+
 }
 
 
@@ -132,13 +152,15 @@ firebase.initializeApp(firebaseConfig);
 
 
 // connection with  firebase and updatation values 
+// import { getDatabase } from 'firebase-admin/database';
+
 
 const companyDB = firebase.database().ref('companies');
 
 
-function storeCost(id, company, name, cost) {
+function storeCost(id, name,company, cost) {
 
-    var pushCompany = companyDB.push();
+    var pushCompany = companyDB.child(name);
 
     pushCompany.set({
         id: id,
@@ -146,5 +168,16 @@ function storeCost(id, company, name, cost) {
         name: name,
         cost: cost
     });
+}
 
+
+// function to update values in database 
+
+function updatecost(name,cost){
+
+    var updateCompany = companyDB.child(name);
+
+    updateCompany.update({
+        cost:cost
+    });
 }
