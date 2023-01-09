@@ -36,6 +36,30 @@ let jrow = document.getElementById('jrow');
 let lrow = document.getElementById('lrow');
 
 
+// grabbing the ids of logo images 
+
+// let m_logo = document.getElementById('m_logo');
+// let j_logo = document.getElementById('j_logo');
+// let l_logo = document.getElementById('l_logo');
+
+// console.log(m_logo);
+
+// function  to get logo image 
+var m_logo,j_logo,l_logo;
+
+function getmlogo(e){
+    m_logo = e.target.files[0];
+}
+
+function getllogo(e){
+    l_logo = e.target.files[0];
+}
+
+function getmjogo(e){
+    j_logo = e.target.files[0];
+}
+
+
 // declaring global variables for array 
 
 let arrSort = [];
@@ -62,6 +86,9 @@ sub_btn.addEventListener('click', function () {
     storeCost(mid, mark, mname, arrSort[0]);
     storeCost(jid, jacob, jname,arrSort[1]);
     storeCost(lid, lorem, lname,arrSort[2]);
+    uploadImg(m_logo,mark);
+    uploadImg(j_logo,jacob);
+    uploadImg(l_logo,lorem);
     // console.log(mark);
     // sub_btn.ariaDisabled;
 });
@@ -116,35 +143,27 @@ function changeCost() {
     return parseInt(cost);
 }
 
-
-// fucction to upload img 
-
-function uploadImg(){
-
-}
-
-
-
 // database 
 const firebaseConfig = {
 
     apiKey: "AIzaSyBX21HIOm5v8lJArc91hV-d5kigAQ4laDE",
-
+  
     authDomain: "projfirebasejs.firebaseapp.com",
-
+  
     databaseURL: "https://projfirebasejs-default-rtdb.firebaseio.com",
-
+  
     projectId: "projfirebasejs",
-
+  
     storageBucket: "projfirebasejs.appspot.com",
-
+  
     messagingSenderId: "391551330422",
-
+  
     appId: "1:391551330422:web:0f3dacaea566f7b8f19757",
-
+  
     measurementId: "G-3RE9SRQDDC"
-
-};
+  
+  };
+  
 
 // initialize firebase
 firebase.initializeApp(firebaseConfig);
@@ -156,7 +175,7 @@ firebase.initializeApp(firebaseConfig);
 
 
 const companyDB = firebase.database().ref('companies');
-
+const companyLogo = firebase.storage().ref('companies');
 
 function storeCost(id, name,company, cost) {
 
@@ -179,5 +198,19 @@ function updatecost(name,cost){
 
     updateCompany.update({
         cost:cost
+    });
+}
+
+
+// function to upload the image 
+
+function uploadImg(fileItem,name){
+    // let storageRef = firebase.storage().ref("images/"+name);
+    // let uploadtask = storageRef.ref.put(fileItem);
+
+    var pushCompany = companyLogo.child(name);
+
+    pushCompany.set({
+        logo:fileItem
     });
 }
