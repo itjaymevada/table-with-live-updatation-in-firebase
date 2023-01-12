@@ -144,25 +144,8 @@ function changeCost() {
 }
 
 // database 
-const firebaseConfig = {
 
-    apiKey: "AIzaSyBX21HIOm5v8lJArc91hV-d5kigAQ4laDE",
-  
-    authDomain: "projfirebasejs.firebaseapp.com",
-  
-    databaseURL: "https://projfirebasejs-default-rtdb.firebaseio.com",
-  
-    projectId: "projfirebasejs",
-  
-    storageBucket: "projfirebasejs.appspot.com",
-  
-    messagingSenderId: "391551330422",
-  
-    appId: "1:391551330422:web:0f3dacaea566f7b8f19757",
-  
-    measurementId: "G-3RE9SRQDDC"
-  
-  };
+// paste your firebase config code 
   
 
 // initialize firebase
